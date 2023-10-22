@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MyHome</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="living_room">Гостиная</string>
+    <string name="my_home">Мой дом</string>
+    <string name="cams">Камеры</string>
+    <string name="doors">Двери</string>
 </resources>

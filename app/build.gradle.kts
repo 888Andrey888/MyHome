@@ -1,20 +1,27 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
     namespace = "com.example.myhome"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.myhome"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField(
+            "String",
+            "BASE_URL",
+            "\"http://cars.cprogroup.ru/api/rubetek/\""
+        )
     }
 
     buildTypes {
@@ -33,7 +40,14 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
+
 }
+
 
 dependencies {
 
@@ -46,6 +60,28 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     // Navigation components
-    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
-    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.4")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.4")
+
+    //Coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
+    //Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //Interceptor
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
+
+    //Lifecycle
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+
+    //Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+
+    //room
+    implementation ("androidx.room:room-runtime:2.6.0")
+    annotationProcessor ("androidx.room:room-compiler:2.6.0")
+    kapt ("androidx.room:room-compiler:2.6.0")
 }

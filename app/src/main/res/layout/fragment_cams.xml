@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F6F6F6"
+    tools:context=".presintation.camsfragment.CamsFragment">
+
+    <TextView
+        android:id="@+id/tv_room_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/tittle_room_text_size"
+        android:text="@string/living_room"
+        android:layout_marginHorizontal="21dp"
+        android:layout_marginTop="16dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_cams"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/cam_item" />
+
+</LinearLayout>
