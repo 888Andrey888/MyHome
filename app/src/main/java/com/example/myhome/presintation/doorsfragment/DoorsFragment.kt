@@ -7,18 +7,25 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myhome.R
 import com.example.myhome.core.base.BaseFragment
-import com.example.myhome.data.models.DoorsModel
+import com.example.myhome.data.network.RetrofitClient
+import com.example.myhome.data.repository.RetrofitRepositoryImpl
+import com.example.myhome.data.storage.RetrofitStorageImpl
 import com.example.myhome.databinding.FragmentDoorsBinding
-import com.example.myhome.presintation.MainActivity
+import com.example.myhome.domain.models.DoorsModel
+import com.example.myhome.domain.usecase.GetDoorsUseCase
 import com.example.myhome.presintation.doorsfragment.adapter.DoorsAdapter
 import com.example.myhome.utils.SwipeController
 
 class DoorsFragment : BaseFragment<FragmentDoorsBinding>() {
 
-    private val viewModel = DoorsViewModel(MainActivity.repository)
+    private val retrofitRepository = RetrofitRepositoryImpl(
+        RetrofitStorageImpl(RetrofitClient().createApiService())
+    )
+    private val getDoorsUseCase = GetDoorsUseCase(retrofitRepository)
+
+    private val viewModel = DoorsViewModel(getDoorsUseCase)
     private val adapter = DoorsAdapter()
     override fun inflaterViewBinding(
         inflater: LayoutInflater,
@@ -41,9 +48,14 @@ class DoorsFragment : BaseFragment<FragmentDoorsBinding>() {
         adapter.addData(doors)
         binding.rvDoors.adapter = adapter
 
-        binding.rvDoors.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+        binding.rvDoors.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
 
-        val itemTouchHelper = ItemTouchHelper(object : SwipeController(binding.rvDoors){
+        val itemTouchHelper = ItemTouchHelper(object : SwipeController(binding.rvDoors) {
             override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
                 val editButton = editButton(position)
                 val favoritesButton = favoritesButton(position)
@@ -61,7 +73,7 @@ class DoorsFragment : BaseFragment<FragmentDoorsBinding>() {
             20f,
             R.color.grey,
             R.drawable.ic_star,
-            object :SwipeController.UnderlayButtonClickListener{
+            object : SwipeController.UnderlayButtonClickListener {
                 override fun onClick() {
                     Toast.makeText(
                         requireContext(),
@@ -80,7 +92,7 @@ class DoorsFragment : BaseFragment<FragmentDoorsBinding>() {
             20f,
             R.color.grey,
             R.drawable.ic_edit,
-            object : SwipeController.UnderlayButtonClickListener{
+            object : SwipeController.UnderlayButtonClickListener {
                 override fun onClick() {
                     Toast.makeText(
                         requireContext(),

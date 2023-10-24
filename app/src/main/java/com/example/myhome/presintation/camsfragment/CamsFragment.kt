@@ -9,15 +9,23 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.myhome.R
 import com.example.myhome.core.base.BaseFragment
-import com.example.myhome.data.models.CamerasModel
+import com.example.myhome.data.network.RetrofitClient
+import com.example.myhome.data.repository.RetrofitRepositoryImpl
+import com.example.myhome.data.storage.RetrofitStorageImpl
 import com.example.myhome.databinding.FragmentCamsBinding
-import com.example.myhome.presintation.MainActivity
+import com.example.myhome.domain.models.CamerasModel
+import com.example.myhome.domain.usecase.GetCamerasUseCase
 import com.example.myhome.presintation.camsfragment.adapter.CamerasAdapter
 import com.example.myhome.utils.SwipeController
 
 class CamsFragment : BaseFragment<FragmentCamsBinding>() {
 
-    private val viewModel = CamerasViewModel(MainActivity.repository)
+    private val retrofitRepository = RetrofitRepositoryImpl(
+        RetrofitStorageImpl(RetrofitClient().createApiService())
+    )
+    private val getCamerasUseCase = GetCamerasUseCase(retrofitRepository)
+
+    private val viewModel = CamerasViewModel(getCamerasUseCase)
     private val adapter = CamerasAdapter()
     override fun inflaterViewBinding(
         inflater: LayoutInflater,
@@ -48,9 +56,14 @@ class CamsFragment : BaseFragment<FragmentCamsBinding>() {
         adapter.addData(cameras = cameras)
         binding.rvCams.adapter = adapter
 
-        binding.rvCams.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+        binding.rvCams.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
 
-        val itemTouchHelper = ItemTouchHelper(object : SwipeController(binding.rvCams){
+        val itemTouchHelper = ItemTouchHelper(object : SwipeController(binding.rvCams) {
             override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
                 val favoritesButton = favoritesButton(position)
                 return listOf(favoritesButton)
@@ -67,7 +80,7 @@ class CamsFragment : BaseFragment<FragmentCamsBinding>() {
             20f,
             R.color.grey,
             R.drawable.ic_star,
-            object :SwipeController.UnderlayButtonClickListener{
+            object : SwipeController.UnderlayButtonClickListener {
                 override fun onClick() {
                     Toast.makeText(
                         requireContext(),

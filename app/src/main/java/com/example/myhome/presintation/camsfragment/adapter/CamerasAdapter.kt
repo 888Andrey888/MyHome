@@ -3,8 +3,9 @@ package com.example.myhome.presintation.camsfragment.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myhome.data.models.CamerasModel
+import com.example.myhome.data.storage.models.CamerasModelDTO
 import com.example.myhome.databinding.CamItemBinding
+import com.example.myhome.domain.models.CamerasModel
 
 class CamerasAdapter : RecyclerView.Adapter<CamerasViewHolder>() {
 

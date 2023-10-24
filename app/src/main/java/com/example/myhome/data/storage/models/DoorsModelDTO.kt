@@ -1,6 +1,6 @@
-package com.example.myhome.data.models
+package com.example.myhome.data.storage.models
 
-data class DoorsModel(
+data class DoorsModelDTO(
     val `data`: List<Data>,
     val success: Boolean
 ) {

@@ -1,4 +1,4 @@
-package com.example.myhome.core.network
+package com.example.myhome.data.network
 
 
 import com.example.myhome.BuildConfig

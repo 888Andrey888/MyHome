@@ -1,6 +1,6 @@
-package com.example.myhome.data.models
+package com.example.myhome.data.storage.models
 
-data class CamerasModel(
+data class CamerasModelDTO(
     val `data`: Data,
     val success: Boolean
 ) {
