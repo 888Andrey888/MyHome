@@ -15,6 +15,7 @@ import com.example.myhome.data.repository.RetrofitRepositoryImpl
 import com.example.myhome.data.storage.RetrofitStorageImpl
 import com.example.myhome.databinding.FragmentCamsBinding
 import com.example.myhome.domain.models.CamerasModel
+import com.example.myhome.domain.repository.RetrofitRepository
 import com.example.myhome.domain.usecase.GetCamerasUseCase
 import com.example.myhome.presintation.camsfragment.adapter.CamerasAdapter
 import com.example.myhome.utils.SwipeController
