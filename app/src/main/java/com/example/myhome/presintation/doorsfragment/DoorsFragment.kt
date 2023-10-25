@@ -39,8 +39,22 @@ class DoorsFragment : BaseFragment<FragmentDoorsBinding>() {
     }
 
     private fun initLiveData() {
+        viewModel.loading.observe(viewLifecycleOwner) { loading ->
+            if (loading) {
+                binding.shimmerLayout.startShimmer()
+                binding.shimmerLayout.visibility = View.VISIBLE
+            } else {
+                binding.shimmerLayout.stopShimmer()
+                binding.shimmerLayout.visibility = View.GONE
+            }
+        }
+
         viewModel.doors.observe(viewLifecycleOwner) { doors ->
             initRecyclerView(doors.data)
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { error ->
+            Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
         }
     }
 

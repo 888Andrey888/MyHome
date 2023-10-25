@@ -9,6 +9,9 @@ import kotlinx.coroutines.launch
 
 open class BaseViewModel: ViewModel() {
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> get() = _loading
+
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
 
@@ -17,6 +20,8 @@ open class BaseViewModel: ViewModel() {
         success: (T) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
+            _loading.postValue(true)
+
             val result = operation()
             when {
                 result.isSuccess -> result.onSuccess(success)
@@ -25,6 +30,8 @@ open class BaseViewModel: ViewModel() {
                         _error.postValue(it.message)
                 }
             }
+
+            _loading.postValue(false)
         }
     }
 

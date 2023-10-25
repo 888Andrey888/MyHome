@@ -1,5 +1,6 @@
 package com.example.myhome.presintation.camsfragment
 
+import android.os.Binder
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +44,16 @@ class CamsFragment : BaseFragment<FragmentCamsBinding>() {
     }
 
     private fun initLiveData() {
+        viewModel.loading.observe(viewLifecycleOwner) { loading ->
+            if (loading) {
+                binding.shimmerLayout.startShimmer()
+                binding.shimmerLayout.visibility = View.VISIBLE
+            }
+            else {
+                binding.shimmerLayout.stopShimmer()
+                binding.shimmerLayout.visibility = View.GONE
+            }
+        }
         viewModel.cameras.observe(viewLifecycleOwner) { cameras ->
             initRecyclerView(cameras.data.cameras)
         }

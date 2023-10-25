@@ -4,18 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#F6F6F6"
+    android:orientation="vertical"
     tools:context=".presintation.camsfragment.CamsFragment">
 
-    <TextView
+    <!--<TextView
         android:id="@+id/tv_room_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/tittle_room_text_size"
         android:text="@string/living_room"
         android:layout_marginHorizontal="21dp"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"/>-->
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/cam_item"></include>
+
+            <include layout="@layout/cam_item"></include>
+
+            <include layout="@layout/cam_item"></include>
+
+            <include layout="@layout/cam_item"></include>
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_cams"
