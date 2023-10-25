@@ -1,6 +1,6 @@
 package com.example.myhome.data.repository
 
-import com.example.myhome.data.storage.RetrofitStorageImpl
+import com.example.myhome.data.storage.RetrofitStorage
 import com.example.myhome.data.storage.models.CamerasModelDTO
 import com.example.myhome.data.storage.models.DoorsModelDTO
 import com.example.myhome.domain.models.CamerasModel
@@ -8,15 +8,15 @@ import com.example.myhome.domain.models.CamerasModel.Data.Camera
 import com.example.myhome.domain.models.DoorsModel
 import com.example.myhome.domain.repository.RetrofitRepository
 
-open class RetrofitRepositoryImpl(private val retrofitStorageImpl: RetrofitStorageImpl) :
+open class RetrofitRepositoryImpl(private val retrofitStorage: RetrofitStorage) :
     RetrofitRepository {
 
     override suspend fun getCameras(): Result<CamerasModel> {
-        return mapToCamerasModel(retrofitStorageImpl.getCameras())
+        return mapToCamerasModel(retrofitStorage.getCameras())
     }
 
     override suspend fun getDoors(): Result<DoorsModel> {
-        return mapToDoorsModel(retrofitStorageImpl.getDoors())
+        return mapToDoorsModel(retrofitStorage.getDoors())
     }
 
     private fun mapToCamerasModel(camerasModel: CamerasModelDTO): Result<CamerasModel> {
