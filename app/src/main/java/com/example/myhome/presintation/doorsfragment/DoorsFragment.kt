@@ -20,6 +20,8 @@ class DoorsFragment : BaseFragment<FragmentDoorsBinding>() {
 
     private val viewModel: DoorsViewModel by viewModels()
     private val adapter = DoorsAdapter()
+    private lateinit var itemTouchHelper: ItemTouchHelper
+
     override fun inflaterViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -29,6 +31,19 @@ class DoorsFragment : BaseFragment<FragmentDoorsBinding>() {
         super.onViewCreated(view, savedInstanceState)
         init()
         initLiveData()
+        initSwipeController()
+    }
+
+    private fun initSwipeController() {
+        itemTouchHelper = ItemTouchHelper(object : SwipeController(binding.rvDoors) {
+            override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
+                val editButton = editButton(position)
+                val favoritesButton = favoritesButton(position)
+                return listOf(editButton, favoritesButton)
+            }
+        })
+
+        itemTouchHelper.attachToRecyclerView(binding.rvDoors)
     }
 
     private fun initLiveData() {
@@ -61,16 +76,6 @@ class DoorsFragment : BaseFragment<FragmentDoorsBinding>() {
                 DividerItemDecoration.VERTICAL
             )
         )
-
-        val itemTouchHelper = ItemTouchHelper(object : SwipeController(binding.rvDoors) {
-            override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
-                val editButton = editButton(position)
-                val favoritesButton = favoritesButton(position)
-                return listOf(editButton, favoritesButton)
-            }
-        })
-
-        itemTouchHelper.attachToRecyclerView(binding.rvDoors)
     }
 
     private fun favoritesButton(position: Int): SwipeController.UnderlayButton {

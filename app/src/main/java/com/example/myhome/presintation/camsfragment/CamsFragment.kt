@@ -20,6 +20,8 @@ class CamsFragment : BaseFragment<FragmentCamsBinding>() {
 
     private val viewModel: CamerasViewModel by viewModels()
     private val adapter = CamerasAdapter()
+    private lateinit var itemTouchHelper: ItemTouchHelper
+
     override fun inflaterViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -29,6 +31,18 @@ class CamsFragment : BaseFragment<FragmentCamsBinding>() {
         super.onViewCreated(view, savedInstanceState)
         init()
         initLiveData()
+        initSwipeController()
+    }
+
+    private fun initSwipeController() {
+        itemTouchHelper = ItemTouchHelper(object : SwipeController(binding.rvCams) {
+            override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
+                val favoritesButton = favoritesButton(position)
+                return listOf(favoritesButton)
+            }
+        })
+
+        itemTouchHelper.attachToRecyclerView(binding.rvCams)
     }
 
     private fun init() {
@@ -64,15 +78,6 @@ class CamsFragment : BaseFragment<FragmentCamsBinding>() {
                 DividerItemDecoration.VERTICAL
             )
         )
-
-        val itemTouchHelper = ItemTouchHelper(object : SwipeController(binding.rvCams) {
-            override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
-                val favoritesButton = favoritesButton(position)
-                return listOf(favoritesButton)
-            }
-        })
-
-        itemTouchHelper.attachToRecyclerView(binding.rvCams)
     }
 
     private fun favoritesButton(position: Int): SwipeController.UnderlayButton {
