@@ -9,5 +9,39 @@
         android:id="@+id/mainFragment"
         android:name="com.example.myhome.presintation.mainfragment.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_notesFragment"
+            app:destination="@id/notesFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_doorsFragment"
+            app:destination="@id/doorsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_camsFragment"
+            app:destination="@id/camsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/camsFragment"
+        android:name="com.example.myhome.presintation.camsfragment.CamsFragment"
+        android:label="fragment_cams"
+        tools:layout="@layout/fragment_cams" />
+    <fragment
+        android:id="@+id/doorsFragment"
+        android:name="com.example.myhome.presintation.doorsfragment.DoorsFragment"
+        android:label="fragment_doors"
+        tools:layout="@layout/fragment_doors" />
+    <fragment
+        android:id="@+id/notesFragment"
+        android:name="com.example.myhome.presintation.notesfragment.NotesFragment"
+        android:label="fragment_notes"
+        tools:layout="@layout/fragment_notes" >
+        <action
+            android:id="@+id/action_notesFragment_to_setFragment"
+            app:destination="@id/setFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setFragment"
+        android:name="com.example.myhome.presintation.setfragment.SetFragment"
+        android:label="fragment_set"
+        tools:layout="@layout/fragment_set" />
 </navigation>

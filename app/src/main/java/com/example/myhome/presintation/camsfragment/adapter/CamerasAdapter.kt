@@ -3,15 +3,13 @@ package com.example.myhome.presintation.camsfragment.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myhome.data.storage.models.CamerasModelDTO
 import com.example.myhome.databinding.CamItemBinding
-import com.example.myhome.domain.models.CamerasModel
 
 class CamerasAdapter : RecyclerView.Adapter<CamerasViewHolder>() {
 
-    private var list = mutableListOf<CamerasModel.Data.Camera>()
+    private var list = mutableListOf<com.example.myhome.domain.models.CamerasModel.Data.Camera>()
 
-    fun addData(cameras: List<CamerasModel.Data.Camera>) {
+    fun addData(cameras: List<com.example.myhome.domain.models.CamerasModel.Data.Camera>) {
         list.clear()
         list.addAll(cameras)
         notifyItemRangeInserted(list.size, cameras.size - list.size)

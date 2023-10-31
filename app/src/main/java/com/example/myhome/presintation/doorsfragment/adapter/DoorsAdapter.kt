@@ -3,16 +3,14 @@ package com.example.myhome.presintation.doorsfragment.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myhome.data.storage.models.DoorsModelDTO
 import com.example.myhome.databinding.DoorsItemBinding
-import com.example.myhome.domain.models.DoorsModel
 
 
 class DoorsAdapter() : RecyclerView.Adapter<DoorsViewHolder>() {
 
-    private var list = mutableListOf<DoorsModel.Data>()
+    private var list = mutableListOf<com.example.myhome.domain.models.DoorsModel.Data>()
 
-    fun addData(doors: List<DoorsModel.Data>) {
+    fun addData(doors: List<com.example.myhome.domain.models.DoorsModel.Data>) {
         list.clear()
         list.addAll(doors)
         notifyItemRangeInserted(list.size, doors.size - list.size)

@@ -5,4 +5,5 @@
     <color name="grey">#FF26DAC9</color>
     <color name="tab_indicator_color">#FF03A9F4</color>
     <color name="transparent">#0003A9F4</color>
+    <color name="fragment_main">#FFF6F6F6</color>
 </resources>

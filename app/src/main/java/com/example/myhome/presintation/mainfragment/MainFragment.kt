@@ -32,6 +32,7 @@ class MainFragment : Fragment() {
             when (pos) {
                 0 -> tab.text = getString(R.string.cams)
                 1 -> tab.text = getString(R.string.doors)
+                2 -> tab.text = getString(R.string.notes)
             }
         }.attach()
     }

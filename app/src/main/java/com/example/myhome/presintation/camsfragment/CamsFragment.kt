@@ -1,33 +1,24 @@
 package com.example.myhome.presintation.camsfragment
 
-import android.os.Binder
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.myhome.R
 import com.example.myhome.core.base.BaseFragment
-import com.example.myhome.data.network.RetrofitClient
-import com.example.myhome.data.repository.RetrofitRepositoryImpl
-import com.example.myhome.data.storage.RetrofitStorageImpl
 import com.example.myhome.databinding.FragmentCamsBinding
-import com.example.myhome.domain.models.CamerasModel
-import com.example.myhome.domain.repository.RetrofitRepository
-import com.example.myhome.domain.usecase.GetCamerasUseCase
 import com.example.myhome.presintation.camsfragment.adapter.CamerasAdapter
 import com.example.myhome.utils.SwipeController
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CamsFragment : BaseFragment<FragmentCamsBinding>() {
 
-    private val retrofitRepository = RetrofitRepositoryImpl(
-        RetrofitStorageImpl(RetrofitClient().createApiService())
-    )
-    private val getCamerasUseCase = GetCamerasUseCase(retrofitRepository)
-
-    private val viewModel = CamerasViewModel(getCamerasUseCase)
+    private val viewModel: CamerasViewModel by viewModels()
     private val adapter = CamerasAdapter()
     override fun inflaterViewBinding(
         inflater: LayoutInflater,
@@ -49,8 +40,7 @@ class CamsFragment : BaseFragment<FragmentCamsBinding>() {
             if (loading) {
                 binding.shimmerLayout.startShimmer()
                 binding.shimmerLayout.visibility = View.VISIBLE
-            }
-            else {
+            } else {
                 binding.shimmerLayout.stopShimmer()
                 binding.shimmerLayout.visibility = View.GONE
             }
@@ -64,7 +54,7 @@ class CamsFragment : BaseFragment<FragmentCamsBinding>() {
         }
     }
 
-    private fun initRecyclerView(cameras: List<CamerasModel.Data.Camera>) {
+    private fun initRecyclerView(cameras: List<com.example.myhome.domain.models.CamerasModel.Data.Camera>) {
         adapter.addData(cameras = cameras)
         binding.rvCams.adapter = adapter
 

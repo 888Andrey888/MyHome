@@ -5,27 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.myhome.R
 import com.example.myhome.core.base.BaseFragment
-import com.example.myhome.data.network.RetrofitClient
-import com.example.myhome.data.repository.RetrofitRepositoryImpl
-import com.example.myhome.data.storage.RetrofitStorageImpl
 import com.example.myhome.databinding.FragmentDoorsBinding
-import com.example.myhome.domain.models.DoorsModel
-import com.example.myhome.domain.usecase.GetDoorsUseCase
 import com.example.myhome.presintation.doorsfragment.adapter.DoorsAdapter
 import com.example.myhome.utils.SwipeController
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DoorsFragment : BaseFragment<FragmentDoorsBinding>() {
 
-    private val retrofitRepository = RetrofitRepositoryImpl(
-        RetrofitStorageImpl(RetrofitClient().createApiService())
-    )
-    private val getDoorsUseCase = GetDoorsUseCase(retrofitRepository)
-
-    private val viewModel = DoorsViewModel(getDoorsUseCase)
+    private val viewModel: DoorsViewModel by viewModels()
     private val adapter = DoorsAdapter()
     override fun inflaterViewBinding(
         inflater: LayoutInflater,
@@ -58,7 +51,7 @@ class DoorsFragment : BaseFragment<FragmentDoorsBinding>() {
         }
     }
 
-    private fun initRecyclerView(doors: List<DoorsModel.Data>) {
+    private fun initRecyclerView(doors: List<com.example.myhome.domain.models.DoorsModel.Data>) {
         adapter.addData(doors)
         binding.rvDoors.adapter = adapter
 

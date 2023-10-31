@@ -6,4 +6,10 @@
     <string name="my_home">Мой дом</string>
     <string name="cams">Камеры</string>
     <string name="doors">Двери</string>
+    <string name="notes">Notes</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="add_note">Add Note</string>
+    <string name="update_note">Update note</string>
+    <string name="the_field_is_not_filled">Поле не заполнено</string>
 </resources>

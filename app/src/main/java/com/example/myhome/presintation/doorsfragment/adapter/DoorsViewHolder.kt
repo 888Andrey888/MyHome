@@ -2,15 +2,13 @@ package com.example.myhome.presintation.doorsfragment.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.myhome.data.storage.models.DoorsModelDTO
 import com.example.myhome.databinding.DoorsItemBinding
-import com.example.myhome.domain.models.DoorsModel
 import com.example.myhome.utils.showImage
 
 class DoorsViewHolder(private val binding: DoorsItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(doorsModelDTO: DoorsModel.Data) {
+    fun bind(doorsModelDTO: com.example.myhome.domain.models.DoorsModel.Data) {
         var showCamView = false
         binding.tvCamTitle.text = doorsModelDTO.name
 

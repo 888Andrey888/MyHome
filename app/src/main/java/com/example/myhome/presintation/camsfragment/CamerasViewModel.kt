@@ -5,8 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import com.example.myhome.core.base.BaseViewModel
 import com.example.myhome.domain.models.CamerasModel
 import com.example.myhome.domain.usecase.GetCamerasUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class CamerasViewModel(private val getCameras: GetCamerasUseCase) : BaseViewModel() {
+@HiltViewModel
+class CamerasViewModel @Inject constructor(private val getCameras: GetCamerasUseCase) :
+    BaseViewModel() {
 
     private val _cameras = MutableLiveData<CamerasModel>()
     val cameras: LiveData<CamerasModel> get() = _cameras
