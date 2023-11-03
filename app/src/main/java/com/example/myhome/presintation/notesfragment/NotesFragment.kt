@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
@@ -112,7 +111,7 @@ class NotesFragment : BaseFragment<FragmentNotesBinding>() {
         )
     }
 
-    private fun setDone(note: Note){
+    private fun setDone(note: Note) {
         viewModel.setDone(note)
     }
 

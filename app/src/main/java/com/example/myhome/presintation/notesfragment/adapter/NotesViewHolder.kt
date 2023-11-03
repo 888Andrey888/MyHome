@@ -16,7 +16,7 @@ class NotesViewHolder(private val binding: NotesItemBinding) :
         else
             binding.imgState.setImageResource(R.drawable.ic_unchecked)
         binding.imgState.setOnClickListener {
-            if (!note.isDone!!){
+            if (!note.isDone!!) {
                 note.isDone = true
                 setDone(note)
             }

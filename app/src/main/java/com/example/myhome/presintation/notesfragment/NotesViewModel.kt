@@ -29,14 +29,15 @@ class NotesViewModel @Inject constructor(
         success = { _nodes.postValue(it) }
     )
 
-    fun deleteNote(note: Note){
+    fun deleteNote(note: Note) {
         viewModelScope.launch(Dispatchers.IO) {
             deleteNote.execute(note)
+            getAllNotes()
         }
     }
 
-    fun setDone(note: Note){
-        viewModelScope.launch(Dispatchers.IO){
+    fun setDone(note: Note) {
+        viewModelScope.launch(Dispatchers.IO) {
             updateNote.execute(note)
             getAllNotes()
         }

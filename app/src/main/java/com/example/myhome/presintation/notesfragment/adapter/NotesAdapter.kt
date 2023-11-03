@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myhome.databinding.NotesItemBinding
 import com.example.myhome.domain.models.Note
 
-class NotesAdapter(private val setDone:(note: Note) -> Unit) : RecyclerView.Adapter<NotesViewHolder>() {
+class NotesAdapter(private val setDone: (note: Note) -> Unit) :
+    RecyclerView.Adapter<NotesViewHolder>() {
 
     private var list = mutableListOf<Note>()
 
