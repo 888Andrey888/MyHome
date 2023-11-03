@@ -1,6 +1,7 @@
 package com.example.myhome.di
 
 import com.example.myhome.domain.repository.RetrofitRepository
+import com.example.myhome.domain.usecase.DeleteNoteUseCase
 import com.example.myhome.domain.usecase.GetAllNotesUseCase
 import com.example.myhome.domain.usecase.GetCamerasUseCase
 import com.example.myhome.domain.usecase.GetDoorsUseCase
@@ -34,5 +35,9 @@ class DomainModule {
     @Provides
     fun provideUpdateNoteUseCase(retrofitRepository: RetrofitRepository) =
         UpdateNoteUseCase(retrofitRepository)
+
+    @Provides
+    fun provideDeleteNoteUseCase(retrofitRepository: RetrofitRepository) =
+        DeleteNoteUseCase(retrofitRepository)
 
 }

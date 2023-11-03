@@ -10,4 +10,6 @@ interface RoomStorage {
 
     suspend fun updateNote(noteDTO: NoteDTO)
 
+    suspend fun deleteNote(noteDTO: NoteDTO)
+
 }

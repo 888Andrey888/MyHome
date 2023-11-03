@@ -37,6 +37,10 @@ open class RetrofitRepositoryImpl(
         roomStorage.updateNote(mapToNoteDTO(note))
     }
 
+    override suspend fun deleteNote(note: Note) {
+        roomStorage.deleteNote(mapToNoteDTO(note))
+    }
+
     private fun mapToNoteDTO(note: Note): NoteDTO {
         return NoteDTO(
             id = note.id,

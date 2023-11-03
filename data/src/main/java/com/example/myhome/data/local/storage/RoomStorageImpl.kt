@@ -16,5 +16,8 @@ class RoomStorageImpl(private val dao: NoteDao) : RoomStorage {
         dao.updateNote(noteDTO)
     }
 
+    override suspend fun deleteNote(noteDTO: NoteDTO) {
+        dao.deleteNote(noteDTO)
+    }
 
 }

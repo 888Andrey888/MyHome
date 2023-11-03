@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myhome.databinding.NotesItemBinding
 import com.example.myhome.domain.models.Note
 
-class NotesAdapter : RecyclerView.Adapter<NotesViewHolder>() {
+class NotesAdapter(private val setDone:(note: Note) -> Unit) : RecyclerView.Adapter<NotesViewHolder>() {
 
     private var list = mutableListOf<Note>()
 
@@ -23,6 +23,6 @@ class NotesAdapter : RecyclerView.Adapter<NotesViewHolder>() {
     override fun getItemCount() = list.size
 
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(list[position], setDone)
     }
 }

@@ -16,4 +16,6 @@ interface RetrofitRepository {
 
     suspend fun updateNote(note: Note)
 
+    suspend fun deleteNote(note: Note)
+
 }

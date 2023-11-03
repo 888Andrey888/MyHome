@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -22,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class NotesFragment : BaseFragment<FragmentNotesBinding>() {
 
     private val viewModel: NotesViewModel by viewModels()
-    private val adapter = NotesAdapter()
+    private val adapter = NotesAdapter(this::setDone)
     private lateinit var itemTouchHelper: ItemTouchHelper
     private var _notes = listOf<Note>()
 
@@ -43,7 +44,7 @@ class NotesFragment : BaseFragment<FragmentNotesBinding>() {
         itemTouchHelper = ItemTouchHelper(object : SwipeController(binding.rvNotes) {
             override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
                 val editButton = editButton(position, _notes[position])
-                val favoritesButton = deleteButton(position)
+                val favoritesButton = deleteButton(position, _notes[position])
                 return listOf(editButton, favoritesButton)
             }
         })
@@ -69,7 +70,7 @@ class NotesFragment : BaseFragment<FragmentNotesBinding>() {
         adapter.addData(notes)
     }
 
-    private fun deleteButton(position: Int): SwipeController.UnderlayButton {
+    private fun deleteButton(position: Int, note: Note): SwipeController.UnderlayButton {
         return SwipeController.UnderlayButton(
             requireContext(),
             "Delete",
@@ -78,14 +79,19 @@ class NotesFragment : BaseFragment<FragmentNotesBinding>() {
             R.drawable.ic_delete,
             object : SwipeController.UnderlayButtonClickListener {
                 override fun onClick() {
-                    Toast.makeText(
-                        requireContext(),
-                        "delete clicked on position: $position",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    showAlertDialog(note)
                 }
             }
         )
+    }
+
+    private fun showAlertDialog(note: Note) {
+        val alertDialog = AlertDialog.Builder(requireContext())
+        alertDialog.setTitle(getString(R.string.delete))
+            .setMessage(getString(R.string.delete_message)).setCancelable(true)
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                viewModel.deleteNote(note)
+            }.setNegativeButton(getString(R.string.no)) { _, _ -> }.show()
     }
 
     private fun editButton(position: Int, note: Note): SwipeController.UnderlayButton {
@@ -104,6 +110,10 @@ class NotesFragment : BaseFragment<FragmentNotesBinding>() {
                 }
             }
         )
+    }
+
+    private fun setDone(note: Note){
+        viewModel.setDone(note)
     }
 
     private fun init() {

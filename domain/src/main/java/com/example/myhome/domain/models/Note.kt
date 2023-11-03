@@ -7,5 +7,5 @@ data class Note(
     val id: Long? = null,
     val title: String? = null,
     val description: String? = null,
-    val isDone: Boolean? = false
+    var isDone: Boolean? = false
 ) : Serializable

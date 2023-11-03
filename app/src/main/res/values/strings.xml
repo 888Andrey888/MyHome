@@ -12,4 +12,8 @@
     <string name="add_note">Add Note</string>
     <string name="update_note">Update note</string>
     <string name="the_field_is_not_filled">Поле не заполнено</string>
+    <string name="delete">Delete</string>
+    <string name="delete_message">Do you really want to delete this note?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
