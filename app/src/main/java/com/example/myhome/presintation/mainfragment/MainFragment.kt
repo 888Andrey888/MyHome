@@ -1,15 +1,16 @@
 package com.example.myhome.presintation.mainfragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.myhome.R
 import com.example.myhome.databinding.FragmentMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
-class MainFragment : Fragment() {
+
+class MainFragment() : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
     override fun onCreateView(
@@ -26,13 +27,14 @@ class MainFragment : Fragment() {
     }
 
     private fun init() {
-        binding.viewPager.adapter = PagerAdapter(this)
+        binding.viewPager.adapter =
+            PagerAdapter(this)
         binding.tabLayout.tabIconTint = null
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, pos ->
             when (pos) {
-                0 -> tab.text = getString(R.string.cams)
-                1 -> tab.text = getString(R.string.doors)
-                2 -> tab.text = getString(R.string.notes)
+                1 -> tab.text = getString(R.string.cams)
+                2 -> tab.text = getString(R.string.doors)
+                0 -> tab.text = getString(R.string.notes)
             }
         }.attach()
     }

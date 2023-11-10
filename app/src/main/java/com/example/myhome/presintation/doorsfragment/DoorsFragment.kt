@@ -6,14 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.myhome.R
 import com.example.myhome.core.base.BaseFragment
 import com.example.myhome.databinding.FragmentDoorsBinding
+import com.example.myhome.domain.models.DoorsModel
 import com.example.myhome.presintation.doorsfragment.adapter.DoorsAdapter
+import com.example.myhome.utils.State
 import com.example.myhome.utils.SwipeController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DoorsFragment : BaseFragment<FragmentDoorsBinding>() {
@@ -47,26 +51,30 @@ class DoorsFragment : BaseFragment<FragmentDoorsBinding>() {
     }
 
     private fun initLiveData() {
-        viewModel.loading.observe(viewLifecycleOwner) { loading ->
-            if (loading) {
-                binding.shimmerLayout.startShimmer()
-                binding.shimmerLayout.visibility = View.VISIBLE
-            } else {
-                binding.shimmerLayout.stopShimmer()
-                binding.shimmerLayout.visibility = View.GONE
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.viewState.collect{
+                when(it){
+                    is State.Loading -> {
+                        binding.shimmerLayout.startShimmer()
+                        binding.shimmerLayout.visibility = View.VISIBLE
+                    }
+                    is State.Empty -> {
+                        Toast.makeText(requireContext(), "Data is empty", Toast.LENGTH_SHORT).show()
+                    }
+                    is State.Success -> {
+                        binding.shimmerLayout.stopShimmer()
+                        binding.shimmerLayout.visibility = View.GONE
+                        initRecyclerView(it.data?.data!!)
+                    }
+                    is State.Error -> {
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
-        }
-
-        viewModel.doors.observe(viewLifecycleOwner) { doors ->
-            initRecyclerView(doors.data)
-        }
-
-        viewModel.error.observe(viewLifecycleOwner) { error ->
-            Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun initRecyclerView(doors: List<com.example.myhome.domain.models.DoorsModel.Data>) {
+    private fun initRecyclerView(doors: List<DoorsModel.Data>) {
         adapter.addData(doors)
         binding.rvDoors.adapter = adapter
 
@@ -117,7 +125,8 @@ class DoorsFragment : BaseFragment<FragmentDoorsBinding>() {
     }
 
     private fun init() {
-        viewModel.getDoors()
+        viewLifecycleOwner.lifecycleScope.launch { viewModel.getDoors() }
+
     }
 
 }

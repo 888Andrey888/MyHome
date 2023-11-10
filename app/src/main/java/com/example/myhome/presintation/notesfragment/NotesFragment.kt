@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.myhome.R
@@ -14,12 +16,18 @@ import com.example.myhome.core.base.BaseFragment
 import com.example.myhome.databinding.FragmentNotesBinding
 import com.example.myhome.domain.models.Note
 import com.example.myhome.presintation.notesfragment.adapter.NotesAdapter
+import com.example.myhome.utils.State
 import com.example.myhome.utils.SwipeController
 import com.example.myhome.utils.Сonstants.REQUIRES_KEY_UPDATE_NOTE
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class NotesFragment : BaseFragment<FragmentNotesBinding>() {
+class NotesFragment(
+) : BaseFragment<FragmentNotesBinding>() {
 
     private val viewModel: NotesViewModel by viewModels()
     private val adapter = NotesAdapter(this::setDone)
@@ -34,7 +42,7 @@ class NotesFragment : BaseFragment<FragmentNotesBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        initLiveData()
+        initFlow()
         initListener()
         initSwipeController()
     }
@@ -57,11 +65,30 @@ class NotesFragment : BaseFragment<FragmentNotesBinding>() {
         }
     }
 
-    private fun initLiveData() {
-        viewModel.nodes.observe(viewLifecycleOwner) { notes ->
-            _notes = notes
-            initRecyclerView(notes)
-        }
+    private fun initFlow() {
+        viewModel.viewState.onEach {
+            when (it) {
+                is State.Loading -> {
+                    binding.shimmerLayout.startShimmer()
+                    binding.shimmerLayout.visibility = View.VISIBLE
+                }
+
+                is State.Success -> {
+                    binding.shimmerLayout.stopShimmer()
+                    binding.shimmerLayout.visibility = View.GONE
+                    initRecyclerView(it.data!!)
+                    _notes = it.data!!
+                }
+
+                is State.Empty -> {
+                    Toast.makeText(requireContext(), "Data is empty", Toast.LENGTH_SHORT).show()
+                }
+
+                is State.Error -> {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun initRecyclerView(notes: List<Note>) {
@@ -116,7 +143,9 @@ class NotesFragment : BaseFragment<FragmentNotesBinding>() {
     }
 
     private fun init() {
-        viewModel.getAllNotes()
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+            viewModel.getAllNotes()
+        }
     }
 
 }

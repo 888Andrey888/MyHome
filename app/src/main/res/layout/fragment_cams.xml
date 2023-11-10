@@ -27,13 +27,13 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/cam_item"></include>
+            <include layout="@layout/cam_item"/>
 
-            <include layout="@layout/cam_item"></include>
+            <include layout="@layout/cam_item"/>
 
-            <include layout="@layout/cam_item"></include>
+            <include layout="@layout/cam_item"/>
 
-            <include layout="@layout/cam_item"></include>
+            <include layout="@layout/cam_item"/>
 
         </LinearLayout>
 

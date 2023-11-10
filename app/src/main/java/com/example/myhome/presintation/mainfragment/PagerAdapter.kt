@@ -13,8 +13,8 @@ class PagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> CamsFragment()
-            1 -> DoorsFragment()
+            1 -> CamsFragment()
+            2 -> DoorsFragment()
             else -> NotesFragment()
         }
     }

@@ -1,7 +1,5 @@
 package com.example.myhome.presintation.notesfragment
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.myhome.core.base.BaseViewModel
 import com.example.myhome.domain.models.Note
@@ -18,15 +16,10 @@ class NotesViewModel @Inject constructor(
     private val getAllNotes: GetAllNotesUseCase,
     private val deleteNote: DeleteNoteUseCase,
     private val updateNote: UpdateNoteUseCase
-) :
-    BaseViewModel() {
+) : BaseViewModel<List<Note>>() {
 
-    private var _nodes = MutableLiveData<List<Note>>()
-    val nodes: LiveData<List<Note>> get() = _nodes
-
-    fun getAllNotes() = doOperation(
-        operation = { getAllNotes.execute() },
-        success = { _nodes.postValue(it) }
+    suspend fun getAllNotes() = doOperation(
+        operation = { getAllNotes.execute() }
     )
 
     fun deleteNote(note: Note) {
