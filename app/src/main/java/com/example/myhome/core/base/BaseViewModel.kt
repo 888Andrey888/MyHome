@@ -1,6 +1,5 @@
 package com.example.myhome.core.base
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myhome.domain.utils.Resource
@@ -20,9 +19,7 @@ open class BaseViewModel<T> : ViewModel() {
     protected suspend fun doOperation(
         operation: suspend () -> Flow<Resource<T>>
     ) {
-        val result = operation()
-        Log.d("ololo", "doOperation: $result")
-        result.onEach {
+        operation().onEach {
             when (it) {
                 is Resource.Loading -> _viewState.value = State.Loading()
                 is Resource.Success -> {
