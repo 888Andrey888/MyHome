@@ -1,7 +1,7 @@
 package com.example.myhome.domain.models
 
 data class DoorsModel(
-    val `data`: List<Data>,
+    val data: List<Data>,
     val success: Boolean
 ) {
     data class Data(

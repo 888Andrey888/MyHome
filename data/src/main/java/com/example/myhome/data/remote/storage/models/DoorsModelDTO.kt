@@ -1,7 +1,7 @@
 package com.example.myhome.data.remote.storage.models
 
 data class DoorsModelDTO(
-    val `data`: List<Data>,
+    val data: List<Data>,
     val success: Boolean
 ) {
     data class Data(

@@ -1,7 +1,7 @@
 package com.example.myhome.domain.models
 
 data class CamerasModel(
-    var `data`: Data,
+    var data: Data,
     var success: Boolean
 ) {
     data class Data(

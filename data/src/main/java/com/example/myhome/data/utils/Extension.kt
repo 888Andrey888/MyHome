@@ -9,9 +9,18 @@ import com.example.myhome.domain.models.Note
 
 fun CamerasModelDTO.mapToCamerasModel(): CamerasModel {
     val camerasModelDataCameras = mutableListOf<CamerasModel.Data.Camera>()
+
     this.data.cameras.mapTo(camerasModelDataCameras) {
-        CamerasModel.Data.Camera(it.favorites, it.id, it.name, it.rec, it.room, it.snapshot)
+        CamerasModel.Data.Camera(
+            id = it.id,
+            favorites = it.favorites,
+            name = it.name,
+            rec = it.rec,
+            room = it.room,
+            snapshot = it.snapshot
+        )
     }
+
     val camerasModelData =
         CamerasModel.Data(camerasModelDataCameras.toList(), this.data.room)
     return CamerasModel(camerasModelData, this.success)
@@ -19,9 +28,17 @@ fun CamerasModelDTO.mapToCamerasModel(): CamerasModel {
 
 fun DoorsModelDTO.mapToDoorsModel(): DoorsModel {
     val doorsModelData = mutableListOf<DoorsModel.Data>()
+
     this.data.mapTo(doorsModelData) {
-        DoorsModel.Data(it.favorites, it.id, it.name, it.room, it.snapshot)
+        DoorsModel.Data(
+            id = it.id,
+            favorites = it.favorites,
+            name = it.name,
+            room = it.room,
+            snapshot = it.snapshot
+        )
     }
+
     return DoorsModel(doorsModelData, this.success)
 }
 
