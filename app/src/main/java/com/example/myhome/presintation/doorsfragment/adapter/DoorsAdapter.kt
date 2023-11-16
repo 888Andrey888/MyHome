@@ -25,4 +25,5 @@ class DoorsAdapter() : RecyclerView.Adapter<DoorsViewHolder>() {
     override fun onBindViewHolder(holder: DoorsViewHolder, position: Int) {
         holder.bind(list[position])
     }
+
 }

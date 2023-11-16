@@ -27,4 +27,5 @@ class SetViewModel @Inject constructor(
             updateNoteUseCase.execute(note)
         }
     }
+
 }

@@ -33,4 +33,5 @@ open class BaseViewModel<T> : ViewModel() {
             }
         }.launchIn(viewModelScope)
     }
+
 }

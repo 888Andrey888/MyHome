@@ -7,6 +7,7 @@ import com.example.myhome.presintation.doorsfragment.DoorsFragment
 import com.example.myhome.presintation.notesfragment.NotesFragment
 
 class PagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+
     override fun getItemCount(): Int {
         return 3
     }
@@ -18,4 +19,5 @@ class PagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
             else -> NotesFragment()
         }
     }
+
 }

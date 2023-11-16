@@ -26,4 +26,5 @@ class NotesAdapter(private val setDone: (note: Note) -> Unit) :
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
         holder.bind(list[position], setDone)
     }
+
 }

@@ -13,4 +13,5 @@ class CamerasViewHolder(private val binding: CamItemBinding) :
         binding.tvCamTitle.text = camera.name
         binding.imgFavorites.showImage(camera.favorites)
     }
+
 }

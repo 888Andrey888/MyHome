@@ -8,4 +8,5 @@ class UpdateNoteUseCase(private val retrofitRepository: RetrofitRepository) {
     suspend fun execute(note: Note){
         retrofitRepository.updateNote(note)
     }
+
 }

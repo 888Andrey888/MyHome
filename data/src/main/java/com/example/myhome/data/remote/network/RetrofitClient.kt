@@ -22,4 +22,5 @@ class RetrofitClient {
 
         return retrofitClient.create(ApiService::class.java)
     }
+
 }

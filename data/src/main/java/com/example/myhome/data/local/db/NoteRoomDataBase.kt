@@ -9,4 +9,5 @@ import com.example.myhome.data.local.storage.models.NoteDTO
 abstract class NoteRoomDataBase: RoomDatabase() {
 
     abstract fun getDao() : NoteDao
+
 }

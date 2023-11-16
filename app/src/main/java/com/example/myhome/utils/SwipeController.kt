@@ -25,6 +25,7 @@ abstract class SwipeController(
     ItemTouchHelper.ACTION_STATE_IDLE,
     ItemTouchHelper.LEFT
 ) {
+
     private var swipedPosition = -1
     private val buttonsBuffer: MutableMap<Int, List<UnderlayButton>> = mutableMapOf()
     private val recoverQueue = object : LinkedList<Int>() {
@@ -128,7 +129,6 @@ abstract class SwipeController(
 
     abstract fun instantiateUnderlayButton(position: Int): List<UnderlayButton>
 
-    //region UnderlayButton
     interface UnderlayButtonClickListener {
         fun onClick()
     }
@@ -141,8 +141,10 @@ abstract class SwipeController(
         @DrawableRes private val src: Int,
         private val clickListener: UnderlayButtonClickListener
     ) {
+
         private var clickableRegion: RectF? = null
-        private val textSizeInPixel: Float = textSize * context.resources.displayMetrics.density // dp to px
+        private val textSizeInPixel: Float =
+            textSize * context.resources.displayMetrics.density // dp to px
         private val horizontalPadding = 50.0f
         val intrinsicWidth: Float
 
@@ -175,19 +177,20 @@ abstract class SwipeController(
 
         private fun drawableToBitmap(drawable: Drawable): Bitmap {
 
-            val bitmap: Bitmap? = if (drawable.intrinsicWidth <= 0 || drawable.intrinsicHeight <= 0) {
-                Bitmap.createBitmap(
-                    1,
-                    1,
-                    Bitmap.Config.ARGB_8888
-                )
-            } else {
-                Bitmap.createBitmap(
-                    drawable.intrinsicWidth,
-                    drawable.intrinsicHeight,
-                    Bitmap.Config.ARGB_8888
-                )
-            }
+            val bitmap: Bitmap? =
+                if (drawable.intrinsicWidth <= 0 || drawable.intrinsicHeight <= 0) {
+                    Bitmap.createBitmap(
+                        1,
+                        1,
+                        Bitmap.Config.ARGB_8888
+                    )
+                } else {
+                    Bitmap.createBitmap(
+                        drawable.intrinsicWidth,
+                        drawable.intrinsicHeight,
+                        Bitmap.Config.ARGB_8888
+                    )
+                }
 
             val canvas = bitmap?.let { Canvas(it) }
             if (canvas != null) {
@@ -207,7 +210,7 @@ abstract class SwipeController(
             }
         }
     }
-    //endregion
+
 }
 
 private fun List<SwipeController.UnderlayButton>.intrinsicWidth(): Float {

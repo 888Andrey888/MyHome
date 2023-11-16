@@ -24,4 +24,5 @@ class CamerasAdapter : RecyclerView.Adapter<CamerasViewHolder>() {
     override fun onBindViewHolder(holder: CamerasViewHolder, position: Int) {
         holder.bind(camera = list[position])
     }
+
 }

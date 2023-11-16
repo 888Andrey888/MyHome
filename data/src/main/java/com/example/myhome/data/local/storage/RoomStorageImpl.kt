@@ -4,6 +4,7 @@ import com.example.myhome.data.local.dao.NoteDao
 import com.example.myhome.data.local.storage.models.NoteDTO
 
 class RoomStorageImpl(private val dao: NoteDao) : RoomStorage {
+
     override suspend fun getAllNotes(): List<NoteDTO> {
         return dao.getAllNotes()
     }

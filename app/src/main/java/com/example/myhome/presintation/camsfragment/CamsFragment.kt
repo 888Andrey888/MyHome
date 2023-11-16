@@ -111,4 +111,5 @@ class CamsFragment : BaseFragment<FragmentCamsBinding>() {
             }
         )
     }
+
 }
